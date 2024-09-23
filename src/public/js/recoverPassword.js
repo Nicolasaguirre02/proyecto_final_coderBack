@@ -22,7 +22,7 @@ async function recuperarPassword(data) {
     try {
       console.log("sisisis", JSON.stringify(data));
   
-      const respuesta = await fetch("https://proyectofinalcoderback-production.up.railway.app//api/recoverPassword", {
+      const respuesta = await fetch("https://proyectofinalcoderback-production.up.railway.app/api/recoverPassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

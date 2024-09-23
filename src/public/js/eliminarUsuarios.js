@@ -13,7 +13,7 @@ async function deletUserID(userID) {
   );
 
   if (confirmacion) {
-    let url = `https://proyectofinalcoderback-production.up.railway.app//api/users/${userID}`;
+    let url = `https://proyectofinalcoderback-production.up.railway.app/api/users/${userID}`;
     try {
       const respuesta = await fetch(url, {
         method: "DELETE", // Usar el método DELETE
@@ -39,7 +39,7 @@ async function guardarUser(button, userId) {
   const selectTipoUsuarioGuardar = row.querySelector("select:last-of-type");
 
   let tipoUser = selectTipoUsuarioGuardar.value; // Obtener el tipo de usuario
-  let url = `https://proyectofinalcoderback-production.up.railway.app//api/users/premium/${userId}`;
+  let url = `https://proyectofinalcoderback-production.up.railway.app/api/users/premium/${userId}`;
 
 
   let data = {

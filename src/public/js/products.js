@@ -4,7 +4,7 @@ const botonesAgregarCarrito = document.querySelectorAll('.btn_agregarProduct');
 
 let cartid = async() => {
 
-    let url = `https://proyectofinalcoderback-production.up.railway.app//api/current`;
+    let url = `https://proyectofinalcoderback-production.up.railway.app/api/current`;
     
     try {
         const response = await fetch(url);
@@ -22,7 +22,7 @@ let cartid = async() => {
 
 
 async function agregarProducto(productId, cartId){
-    let url = `https://proyectofinalcoderback-production.up.railway.app//api/carts/${cartId}/product/${productId}`;
+    let url = `https://proyectofinalcoderback-production.up.railway.app/api/carts/${cartId}/product/${productId}`;
     
     try {
         const response = await fetch(url, {
@@ -55,7 +55,7 @@ botonesAgregarCarrito.forEach(boton => {
 
 //Enviar mail
 async function enviarMail(idCart){
-    let url = `https://proyectofinalcoderback-production.up.railway.app//api/${idCart}/purchase `;
+    let url = `https://proyectofinalcoderback-production.up.railway.app/api/${idCart}/purchase `;
 
     try {
         let result = await fetch(url);
