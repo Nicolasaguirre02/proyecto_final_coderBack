@@ -1,0 +1,158 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtener todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          Descripcion: Datos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schema/Products"
+        "500":
+          Descripcion: Error interno del servidor
+    post:
+      summary: Crear un nuevo producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/NewProduct"  # Referencia al esquema del producto que se va a crear
+      responses:
+        "201":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Product"  # Esquema del producto creado
+        "400":
+          description: Error en la solicitud (datos inválidos)
+        "500":
+          description: Error interno del servidor
+  /api/products/{pid}:
+    get:
+      summary: Obtener un solo producto a partir de un ID
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        descripcion: id del producto que se desea solicitrar
+        schema:
+         $type: String
+      responses:
+        "200":
+          Descripcion: Datos encontrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/requestBodieas/updateUser"
+        "500":
+          Descripcion: Error interno del servidor
+    put:
+      summary: Actualizar producto por su id
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        descripcion: id del producto que se desea solicitrar
+        schema:
+         $type: String
+      responses:
+        "200":
+          Descripcion: Datos encontrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/requestBodieas/updateUser"
+        "500":
+          Descripcion: Error interno del servidor
+   
+  
+
+
+
+
+components:
+  schema:
+    Products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          Descripcion: Id autogenerado de mongo
+        price:
+          type: number
+          Descripcion: Reprecenta el precio del producto
+        titulo:
+          type: string
+          Descripcion: Tipo principal del producto
+        disponible:
+          type: boolean
+          Descripcion: Verifica si esta o no disponible el producto
+        owner:
+          type: string
+          Descripcion: Guarda el tipo de usuario que es la persona que creo el producto
+      example:
+        _id: ObjectID('664fb9b635bf3469c325f966')
+        titulo: Teclado
+        price: 9400
+        disponible: true
+        owner: Premium
+    NewProduct:
+        type: object
+        properties:
+          price:
+            type: number
+          titulo:
+            type: string
+          disponible:
+            type: boolean
+          owner:
+            type: string
+    Product:
+      allOf:
+        - $ref: "#/components/schema/NewProduct"
+        - type: object
+          properties:
+            id:
+              type: string
+              description: ID único del producto
+  requestBodieas:
+    updateUser:
+      type: object
+      properties:
+        price:
+          type: number
+          Descripcion: Precio del producto
+        titulo:
+          type: string
+          Descripcion: Titulo del producto
+        disponible:
+          type: boolean
+          Descripcion: Disponibilidad del producto
+        owner:
+          type: string
+          Descripcion: Tipo de cuenta del creador del producto
+      example:
+        price: 4000
+        titulo: Teclado 
+        disponible: true
+        owner: premium
+    
+    
+
+      
+
+
+

@@ -1,0 +1,26 @@
+<h1>Iniciar sesion</h1>
+
+<form action="/api/login" method="post">
+  <div class="row">
+    <div class="col-6">
+      <label for="email">Mail</label>
+      <input type="email" name="email" />
+
+      <label for="password">Contraseña</label>
+      <input type="password" name="password" />
+    </div>
+  </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="submit">Entrar</button>
+            <a style="padding-left: 20px;" href="/recoverPassword">Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+</form>
+
+<div>
+  <a href="/api/github"><button>Ingresar con Github</button></a>
+</div>
+
+<a href="/register">Crear cuenta</a>

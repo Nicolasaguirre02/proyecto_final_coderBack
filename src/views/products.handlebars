@@ -1,0 +1,83 @@
+
+<div class="container-fluid">
+    <div class="row" style="background-color: antiquewhite;">
+        <div class="col-4">
+        <h2 id="nombre" >{{user.first_name}} {{user.last_name}}</h2>
+        </div>
+
+        <div class="col-4">
+            <h1>Productos</h1>
+        </div>
+
+        {{user.cart}}
+        
+        <div class="col-4">
+            {{#if user.tipoUsuario}}
+            <h2>Cuenta premium</h2>
+            {{else}}
+            <h2>Cuenta usaurio</h2>
+            {{/if}}
+        </div>
+
+    </div>
+</div>
+
+{{#if isValid}}
+<div>
+   <button type="button" class="btn btn-outline-dark" id="finalizarCompra">Finalizar compra</button>
+
+     {{#if user.tipoUsuario}}
+           <a href="/eliminarUsuarios"><button type="button" class="btn btn-outline-dark" >Modificar rol de usuarios</button></a>
+    {{/if}}
+
+    
+   
+    {{#each docs}}
+    <div>
+       
+        <div class="card border-primary mb-3" style="max-width: 25rem;">
+            <div class="card-header">{{this.titulo}}</div>
+            <div class="card-body text-primary">
+                <h5 class="card-title">$ {{this.price}}</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="card-text">Stock: {{this.disponible}}</p>
+                        <p class="card-text">Stock: {{this._id}}</p>
+                    </div>
+                    <div class="col-6 text-end">
+                        {{#if ../user.tipoUsuario}}
+                        <p></p>
+                        {{else}}
+                        <button type="button" value="{{this._id}}"
+                            class="btn btn-outline-dark btn_agregarProduct"  data-id="{{this._id}}">Agregar al carrito</button>
+                        {{/if}} 
+                        {{!-- <button type="button"  data-id="{{this._id}}" class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <br/>
+    {{/each}}
+</div>
+<br/>
+<div>
+    {{#if hasPrevPage}}
+        <a href={{this.prevLink}}><< Anterior</a>
+    {{/if}}
+    &nbsp;
+    {{this.page}}
+    &nbsp;
+     {{#if hasNextPage}}
+        <a href={{this.nextLink}}>Siguiente >></a>
+    {{/if}} 
+</div>
+{{else}}
+<h1>No hay estudiantes para mostrar</h1>
+{{/if}} 
+
+<a href="/api/logout">Salir</a>
+
+<script src="./js/products.js"></script> 

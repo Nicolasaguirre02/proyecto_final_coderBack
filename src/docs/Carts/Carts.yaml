@@ -1,0 +1,155 @@
+paths:
+  /api/carts/:
+    get:
+      summary: Obtener todos los productos
+      tags:
+        - Carts
+      responses:
+        "200":
+          Descripcion: Datos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schema/carts"
+        "500":
+          Descripcion: Error interno del servidor
+    post:
+      summary: Crear un nuevo carrito
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/newCart"  # Referencia al esquema del producto que se va a crear
+      responses:
+        "201":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/carts"  # Esquema del producto creado
+        "400":
+          description: Error en la solicitud (datos inválidos)
+        "500":
+          description: Error interno del servidor
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un solo carrito a partir de un ID
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        descripcion: id del carrito que se desea solicitrar
+        schema:
+         $type: String
+      responses:
+        "200":
+          Descripcion: Datos encontrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/carts"
+        "500":
+          Descripcion: Error interno del servidor
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agregar un nuevo producto al carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito al que se va a agregar el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto que se va a agregar al carrito
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/NewCartProduct" 
+      responses:
+        "201":
+          description: Producto agregado correctamente al carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/carts"  
+        "400":
+          description: Error en la solicitud (datos inválidos)
+        "500":
+          description: Error interno del servidor
+
+  
+
+components:
+  schema:
+    NewCartProduct:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: Cantidad del producto que se va a agregar
+      required:
+        - quantity
+    productInCart:
+      type: object
+      properties:
+        product:
+          type: string
+          description: ID del producto
+        quantity:
+          type: integer
+          description: Cantidad de producto en el carrito
+        _id:
+          type: string
+          description: ID unico para este producto en el carrito
+    example:
+        product: '664fb99f35bf3469c325f964'
+        quantity: 2
+        price: 9400
+        _id: "6680190ccad15965e485f8d9"
+    
+
+    carts:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          Descripcion: Id unico del carrito
+        products:
+          type: array
+          items: ¨#/components/schema/productInCart
+      example:
+        _id: '66801906cad15965e485f8d6'
+        products: [{
+                "product": "664fb99f35bf3469c325f964",
+                "quantity": 1,
+                "_id": "6680190ccad15965e485f8d9"
+            },
+            {
+                "product": "664fb99f35bf3469c325f964",
+                "quantity": 1,
+                "_id": "66801912cad15965e485f8de"
+            }]
+
+    newCart:
+        type: object
+        properties:
+          _id: 
+            type: string
+          products:
+            type: array
